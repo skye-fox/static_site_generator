@@ -4,6 +4,10 @@ from htmlnode import HTMLNode, LeafNode, ParentNode
 
 test_dict = {"href": '"https://www.google.com"', "target": '"_blank"'}
 test_dict2 = {"href": '"https://www.google.com"'}
+test_dict3 = {
+    "src": '"https://www.boot.dev/img/bootdev-logo-full-small.webp"',
+    "alt": '"boot.dev logo"',
+}
 test_list = [
     LeafNode("b", "Bold text"),
     LeafNode(None, "Normal text"),
@@ -60,6 +64,13 @@ class TestLeafNode(unittest.TestCase):
     def test4_eq(self):
         self.assertEqual(
             ul_node1.to_html(), '<ul><a href="https://www.google.com">item 1</a></ul>'
+        )
+
+    def test5_eq(self):
+        node = LeafNode("img", "", props=test_dict3)
+        self.assertEqual(
+            node.to_html(),
+            '<img src="https://www.boot.dev/img/bootdev-logo-full-small.webp" alt="boot.dev logo">',
         )
 
 
