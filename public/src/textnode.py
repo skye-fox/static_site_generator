@@ -1,7 +1,11 @@
+"""Module to handle functionality of text nodes"""
+
 from htmlnode import LeafNode
 
 
 class TextNode:
+    """Class for creating text nodes."""
+
     def __init__(self, text, text_type, url=None):
         self.text = text
         self.text_type = text_type
@@ -19,6 +23,7 @@ class TextNode:
 
 
 def text_node_to_html_node(text_node):
+    """Function to convert text nodes into LeafNodes."""
     types = ["text", "bold", "italic", "code", "link", "image"]
 
     if text_node.text_type in types:
