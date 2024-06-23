@@ -1,4 +1,9 @@
+"""This module implements the classes used to process inputs to html."""
+
+
 class HTMLNode:
+    """Class for building html nodes"""
+
     def __init__(self, tag=None, value=None, children=None, props=None):
         self.tag = tag
         self.value = value
@@ -6,11 +11,13 @@ class HTMLNode:
         self.props = props
 
     def to_html(self):
+        """Method for processing inputs to html. Overridden in child classes."""
         raise NotImplementedError(
             "to_html can only be called on child classes of HTMLNode"
         )
 
     def props_to_html(self):
+        """Method for processing the props dictionary into appropriate html output"""
         if self.props is not None:
             html = ""
             for key, value in self.props.items():
@@ -23,6 +30,8 @@ class HTMLNode:
 
 
 class LeafNode(HTMLNode):
+    """Class to process an HTMLNode that has can't have children."""
+
     def __init__(self, tag=None, value=None, props=None):
         super().__init__(tag, value, None, props)
 
@@ -43,6 +52,8 @@ class LeafNode(HTMLNode):
 
 
 class ParentNode(HTMLNode):
+    """Class for processing HTMLNodes that must have children."""
+
     def __init__(self, tag=None, children=None, props=None):
         super().__init__(tag, None, children, props)
 
