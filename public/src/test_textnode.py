@@ -1,6 +1,7 @@
 import unittest
 
-from textnode import TextNode
+from htmlnode import LeafNode
+from textnode import TextNode, text_node_to_html_node
 
 
 class TestTextNode(unittest.TestCase):
@@ -28,6 +29,67 @@ class TestTextNode(unittest.TestCase):
         node3 = TextNode("This is a text node", "italic")
         node4 = TextNode("This is a text node", "bold")
         self.assertNotEqual(node3, node4)
+
+
+text_node1 = TextNode("Hello World", "bold")
+text_node2 = TextNode("Hello World", "italic")
+text_node3 = TextNode("Hello World", "text")
+text_node4 = TextNode("print('hello world')", "code")
+text_node5 = TextNode(
+    '"boot.dev logo"',
+    "image",
+    '"https://www.boot.dev/img/bootdev-logo-full-small.webp"',
+)
+text_node6 = TextNode(
+    "Click me!",
+    "link",
+    '"https://www.boot.dev"',
+)
+
+
+class TestTextNodeToHTMLNode(unittest.TestCase):
+    def test1_eq(self):
+        node = text_node_to_html_node(text_node1)
+        self.assertEqual(node.to_html(), LeafNode("bold", "Hello World").to_html())
+
+    def test2_eq(self):
+        node = text_node_to_html_node(text_node2)
+        self.assertEqual(node.to_html(), LeafNode("italic", "Hello World").to_html())
+
+    def test3_eq(self):
+        node = text_node_to_html_node(text_node3)
+        self.assertEqual(node.to_html(), LeafNode(None, "Hello World").to_html())
+
+    def test4_eq(self):
+        node = text_node_to_html_node(text_node4)
+        self.assertEqual(
+            node.to_html(), LeafNode("code", "print('hello world')").to_html()
+        )
+
+    def test5_eq(self):
+        node = text_node_to_html_node(text_node5)
+        self.assertEqual(
+            node.to_html(),
+            LeafNode(
+                "img",
+                "",
+                {
+                    "src": '"https://www.boot.dev/img/bootdev-logo-full-small.webp"',
+                    "alt": '"boot.dev logo"',
+                },
+            ).to_html(),
+        )
+
+    def test6_eq(self):
+        node = text_node_to_html_node(text_node6)
+        self.assertEqual(
+            node.to_html(),
+            LeafNode(
+                "a",
+                "Click me!",
+                {"href": '"https://www.boot.dev"'},
+            ).to_html(),
+        )
 
 
 if __name__ == "__main__":
