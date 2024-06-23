@@ -1,3 +1,5 @@
+"""Module for testing text node module"""
+
 import unittest
 
 from htmlnode import LeafNode
@@ -5,27 +7,34 @@ from textnode import TextNode, text_node_to_html_node
 
 
 class TestTextNode(unittest.TestCase):
+    """Class for testing TextNodes."""
+
     def test_eq(self):
+        """Test if two TextNode instances are equal"""
         node = TextNode("This is a text node", "bold")
         node2 = TextNode("This is a text node", "bold")
         self.assertEqual(node, node2)
 
     def test_eq2(self):
+        """Test if two TextNode instances are equal"""
         node = TextNode("This is a text node", "bold", "https://boot.dev")
         node2 = TextNode("This is a text node", "bold", "https://boot.dev")
         self.assertEqual(node, node2)
 
     def test_not_eq(self):
+        """Test if two TextNode instances are not equal"""
         node3 = TextNode("This is a text node", "bold")
         node4 = TextNode("This is a text node", "bold", "https://boot.dev")
         self.assertNotEqual(node3, node4)
 
     def test_not_eq2(self):
+        """Test if two TextNode instances are not equal"""
         node3 = TextNode("This is  text node", "bold")
         node4 = TextNode("This is a text node", "bold")
         self.assertNotEqual(node3, node4)
 
     def test_not_eq3(self):
+        """Test if two TextNode instances are not equal"""
         node3 = TextNode("This is a text node", "italic")
         node4 = TextNode("This is a text node", "bold")
         self.assertNotEqual(node3, node4)
@@ -48,25 +57,37 @@ text_node6 = TextNode(
 
 
 class TestTextNodeToHTMLNode(unittest.TestCase):
+    """Class to test the text_node_to_html_node function."""
+
     def test1_eq(self):
+        """Test to see if html output of a node with the bold tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node1)
         self.assertEqual(node.to_html(), LeafNode("bold", "Hello World").to_html())
 
     def test2_eq(self):
+        """Test to see if html output of a node with the italic tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node2)
         self.assertEqual(node.to_html(), LeafNode("italic", "Hello World").to_html())
 
     def test3_eq(self):
+        """Test to see if html output of a node with no tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node3)
         self.assertEqual(node.to_html(), LeafNode(None, "Hello World").to_html())
 
     def test4_eq(self):
+        """Test to see if html output of a node with the code tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node4)
         self.assertEqual(
             node.to_html(), LeafNode("code", "print('hello world')").to_html()
         )
 
     def test5_eq(self):
+        """Test to see if html output of a node with the image tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node5)
         self.assertEqual(
             node.to_html(),
@@ -81,6 +102,8 @@ class TestTextNodeToHTMLNode(unittest.TestCase):
         )
 
     def test6_eq(self):
+        """Test to see if html output of a node with the anchor tag created by
+        the function is equal to the html output of a node created by hand"""
         node = text_node_to_html_node(text_node6)
         self.assertEqual(
             node.to_html(),
