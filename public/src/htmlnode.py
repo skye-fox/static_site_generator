@@ -21,9 +21,9 @@ class HTMLNode:
         if self.props is not None:
             html = ""
             for key, value in self.props.items():
-                html += f"{key}={value} "
-            return html.strip()
-        return None
+                html += f" {key}={value}"
+            return html
+        return ""
 
     def __repr__(self):
         return f"HTMLNode{self.tag, self.value, self.children, self.props}"
@@ -42,13 +42,10 @@ class LeafNode(HTMLNode):
         if self.tag is None:
             return self.value
 
-        if self.props is None:
-            return f"<{self.tag}>{self.value}</{self.tag}>"
-
         if self.tag == "img":
-            return f"<{self.tag} {self.props_to_html()}>"
+            return f"<{self.tag}{self.props_to_html()}>"
 
-        return f"<{self.tag} {self.props_to_html()}>{self.value}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{self.value}</{self.tag}>"
 
 
 class ParentNode(HTMLNode):
@@ -63,15 +60,7 @@ class ParentNode(HTMLNode):
             raise ValueError("tag property is required")
         if self.children is None:
             raise ValueError("children property is required")
-        if self.props is None:
-            if len(self.children) < 1:
-                return result
-            for child in self.children:
-                result += child.to_html()
-            return f"{result}</{self.tag}>"
-        result = f"<{self.tag} {self.props_to_html()}>"
-        if len(self.children) < 1:
-            return result
+        result = ""
         for child in self.children:
             result += child.to_html()
-        return f"{result}</{self.tag}>"
+        return f"<{self.tag}{self.props_to_html()}>{result}</{self.tag}>"

@@ -45,7 +45,7 @@ class TestHTMLNode(unittest.TestCase):
         """Test for the props_to_html method."""
         node = HTMLNode(props=test_dict)
         self.assertEqual(
-            node.props_to_html(), 'href="https://www.google.com" target="_blank"'
+            node.props_to_html(), ' href="https://www.google.com" target="_blank"'
         )
 
 
