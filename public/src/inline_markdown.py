@@ -1,5 +1,7 @@
 """This Module is for processing inline markdown"""
 
+import re
+
 from textnode import TextNode
 
 
@@ -41,3 +43,15 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
     if counter == 1:
         raise SyntaxError("Invalid Markdown syntax")
     return new_nodes
+
+
+def extract_markdown_images(text):
+    """Function to extract images from text, returns a tuple containing (alt text, url)"""
+    images = re.findall(r"!\[(.*?)\]\((.*?)\)", text)
+    return images
+
+
+def extract_markdown_links(text):
+    """Function to extract links from text, returns a tuple containing (anchor text, url)"""
+    links = re.findall(r"\[(.*?)\]\((.*?)\)", text)
+    return links
