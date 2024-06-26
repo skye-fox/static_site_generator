@@ -55,3 +55,22 @@ def extract_markdown_links(text):
     """Function to extract links from text, returns a tuple containing (anchor text, url)"""
     links = re.findall(r"\[(.*?)\]\((.*?)\)", text)
     return links
+
+
+def split_nodes_image(old_nodes):
+    """Function to split markdown text with images into a list of TextNodes"""
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type != "text":
+            new_nodes.append(node)
+        original_text = node.text
+        images = extract_markdown_images(original_text)
+        for image in images:
+            split_node = original_text.split(f"![{image[0]}]({image[1]})", 1)
+            if split_node[0] != "":
+                new_nodes.append(TextNode(split_node[0], "text"))
+            new_nodes.append(TextNode(image[0], "image", image[1]))
+            original_text = split_node[1]
+        if original_text != "":
+            new_nodes.append(TextNode(original_text, "text"))
+    return new_nodes
