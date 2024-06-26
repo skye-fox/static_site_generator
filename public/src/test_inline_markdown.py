@@ -16,7 +16,7 @@ from textnode import TextNode
 class TestSplitNodesDelimiter(unittest.TestCase):
     """Class to test the split_nodes_delimiter function"""
 
-    def test1_eq(self):
+    def test_text_type_code(self):
         """Test split_nodes_delimiter function for code type"""
 
         node = TextNode("This is text with a `code block` word", "text")
@@ -24,13 +24,13 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             new_nodes,
             [
-                TextNode("This is text with a", "text"),
+                TextNode("This is text with a ", "text"),
                 TextNode("code block", "code"),
-                TextNode("word", "text"),
+                TextNode(" word", "text"),
             ],
         )
 
-    def test2_eq(self):
+    def test_text_type_bold(self):
         """Test split_nodes_delimiter function for bold type"""
 
         node = TextNode("This is text with a **bold** word", "text")
@@ -38,13 +38,13 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             new_nodes,
             [
-                TextNode("This is text with a", "text"),
+                TextNode("This is text with a ", "text"),
                 TextNode("bold", "bold"),
-                TextNode("word", "text"),
+                TextNode(" word", "text"),
             ],
         )
 
-    def test3_eq(self):
+    def test_text_type_italic(self):
         """Test split_nodes_delimiter function for italic type"""
 
         node = TextNode("This is text with a *italic* word", "text")
@@ -52,13 +52,13 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         self.assertEqual(
             new_nodes,
             [
-                TextNode("This is text with a", "text"),
+                TextNode("This is text with a ", "text"),
                 TextNode("italic", "italic"),
-                TextNode("word", "text"),
+                TextNode(" word", "text"),
             ],
         )
 
-    def test4_eq(self):
+    def test_multiple_occurances(self):
         """Test split_nodes_delimiter function for multiple occurances in the string"""
 
         node = TextNode(
@@ -70,12 +70,39 @@ class TestSplitNodesDelimiter(unittest.TestCase):
             new_nodes,
             [
                 TextNode("This", "bold"),
-                TextNode("is text with a", "text"),
+                TextNode(" is text with a ", "text"),
                 TextNode("bold", "bold"),
-                TextNode("word and also a few", "text"),
+                TextNode(" word and also a few ", "text"),
                 TextNode("bold words", "bold"),
             ],
         )
+
+    def test_multiple_nodes(self):
+        node_1 = TextNode("This is text with a **code block** word", "text")
+        node_2 = TextNode("This is text with a **bold** word", "text")
+        node_3 = TextNode("This is text with **more bold** words", "text")
+        node_4 = TextNode(
+            "**This** is text with a **bold** word and also a few **bold words**",
+            "text",
+        )
+        lst1 = [node_1, node_2, node_3, node_4]
+        lst2 = [
+            TextNode("This is text with a ", "text"),
+            TextNode("code block", "bold"),
+            TextNode(" word", "text"),
+            TextNode("This is text with a ", "text"),
+            TextNode("bold", "bold"),
+            TextNode(" word", "text"),
+            TextNode("This is text with ", "text"),
+            TextNode("more bold", "bold"),
+            TextNode(" words", "text"),
+            TextNode("This", "bold"),
+            TextNode(" is text with a ", "text"),
+            TextNode("bold", "bold"),
+            TextNode(" word and also a few ", "text"),
+            TextNode("bold words", "bold"),
+        ]
+        self.assertEqual(split_nodes_delimiter(lst1, "**", "bold"), lst2)
 
 
 class ExtractMarkdownImagesAndLinks(unittest.TestCase):
