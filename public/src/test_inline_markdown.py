@@ -9,6 +9,7 @@ from inline_markdown import (
     split_nodes_delimiter,
     split_nodes_image,
     split_nodes_link,
+    text_to_textnodes,
 )
 from textnode import TextNode
 
@@ -291,3 +292,28 @@ class SplitNodesLink(unittest.TestCase):
             TextNode(" This is some trailing text", "text"),
         ]
         self.assertEqual(split_nodes_link(lst), lst2)
+
+
+class TestTextToTextnode(unittest.TestCase):
+    """Class to test function text_to_textnodes"""
+
+    def test_text_to_textnode(self):
+        """Test if the function text_to_textnodes is working as expected"""
+        text = "This is **text** with an *italic* word and a `code block` and an ![image](https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png) and a [link](https://boot.dev)"
+        lst = [
+            TextNode("This is ", "text"),
+            TextNode("text", "bold"),
+            TextNode(" with an ", "text"),
+            TextNode("italic", "italic"),
+            TextNode(" word and a ", "text"),
+            TextNode("code block", "code"),
+            TextNode(" and an ", "text"),
+            TextNode(
+                "image",
+                "image",
+                "https://storage.googleapis.com/qvault-webapp-dynamic-assets/course_assets/zjjcJKZ.png",
+            ),
+            TextNode(" and a ", "text"),
+            TextNode("link", "link", "https://boot.dev"),
+        ]
+        self.assertEqual(text_to_textnodes(text), lst)
