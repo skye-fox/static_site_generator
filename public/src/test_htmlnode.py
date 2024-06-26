@@ -1,5 +1,7 @@
 """This module is for testing the html node module"""
 
+# pylint: disable=line-too-long
+
 import unittest
 
 from htmlnode import HTMLNode, LeafNode, ParentNode
