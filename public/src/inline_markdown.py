@@ -74,3 +74,22 @@ def split_nodes_image(old_nodes):
         if original_text != "":
             new_nodes.append(TextNode(original_text, "text"))
     return new_nodes
+
+
+def split_nodes_link(old_nodes):
+    """Function to split markdown text with links into a list of TextNodes"""
+    new_nodes = []
+    for node in old_nodes:
+        if node.text_type != "text":
+            new_nodes.append(node)
+        original_text = node.text
+        links = extract_markdown_links(original_text)
+        for link in links:
+            split_node = original_text.split(f"[{link[0]}]({link[1]})", 1)
+            if split_node[0] != "":
+                new_nodes.append(TextNode(split_node[0], "text"))
+            new_nodes.append(TextNode(link[0], "link", link[1]))
+            original_text = split_node[1]
+        if original_text != "":
+            new_nodes.append(TextNode(original_text, "text"))
+    return new_nodes

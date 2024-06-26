@@ -8,6 +8,7 @@ from inline_markdown import (
     extract_markdown_links,
     split_nodes_delimiter,
     split_nodes_image,
+    split_nodes_link,
 )
 from textnode import TextNode
 
@@ -189,8 +190,77 @@ class SplitNodesImage(unittest.TestCase):
         ]
         self.assertEqual(split_nodes_image([node]), lst)
 
-    def test_multiple_lists(self):
+    def test_multiple_nodes(self):
         """test if function works given many nodes in the list"""
         lst = [node1, node2, node3, node4]
         lst2 = list1 + list2 + list3 + list4
         self.assertEqual(split_nodes_image(lst), lst2)
+
+
+class SplitNodesLink(unittest.TestCase):
+    """Class for testing split_nodes_link function"""
+
+    def test_link_single(self):
+        """Test function with one link"""
+        node = TextNode(
+            "This is text with a [link](https://www.boot.dev) it's the only one", "text"
+        )
+        lst = [
+            TextNode("This is text with a ", "text"),
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" it's the only one", "text"),
+        ]
+        self.assertEqual(split_nodes_link([node]), lst)
+
+    def test_link_at_end(self):
+        """Test function with link at the end"""
+        node = TextNode(
+            "This is text with a [link](https://www.boot.dev) and another [second link](https://www.google.com)",
+            "text",
+        )
+        lst = [
+            TextNode("This is text with a ", "text"),
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" and another ", "text"),
+            TextNode("second link", "link", "https://www.google.com"),
+        ]
+        self.assertEqual(split_nodes_link([node]), lst)
+
+    def test_link_at_start(self):
+        """Test function with link at the start"""
+        node = TextNode(
+            "[link](https://www.boot.dev) This is some trailing text",
+            "text",
+        )
+        lst = [
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" This is some trailing text", "text"),
+        ]
+        self.assertEqual(split_nodes_link([node]), lst)
+
+    def test_multiple_nodes(self):
+        """Test function with multiple nodes in list"""
+        node_1 = TextNode(
+            "This is text with a [link](https://www.boot.dev) it's the only one", "text"
+        )
+        node_2 = TextNode(
+            "This is text with a [link](https://www.boot.dev) and another [second link](https://www.google.com)",
+            "text",
+        )
+        node_3 = TextNode(
+            "[link](https://www.boot.dev) This is some trailing text",
+            "text",
+        )
+        lst = [node_1, node_2, node_3]
+        lst2 = [
+            TextNode("This is text with a ", "text"),
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" it's the only one", "text"),
+            TextNode("This is text with a ", "text"),
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" and another ", "text"),
+            TextNode("second link", "link", "https://www.google.com"),
+            TextNode("link", "link", "https://www.boot.dev"),
+            TextNode(" This is some trailing text", "text"),
+        ]
+        self.assertEqual(split_nodes_link(lst), lst2)
