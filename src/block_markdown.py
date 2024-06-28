@@ -141,7 +141,8 @@ def ordered_list_block_to_html(block, block_type):
     old_lines = block.splitlines()
     children = []
     for i, line in enumerate(old_lines, 1):
-        children.append(LeafNode("li", line.strip(f"{i}. ")))
+        inner_children = text_to_children(line.strip(f"{i}. "))
+        children.append(ParentNode("li", inner_children))
     return ParentNode("ol", children)
 
 

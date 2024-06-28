@@ -301,19 +301,37 @@ This is the same paragraph on a new line
                     ParentNode(
                         "ol",
                         [
-                            LeafNode(
+                            ParentNode(
                                 "li",
-                                "This is the first item in an ordered list",
+                                [
+                                    LeafNode(
+                                        None,
+                                        "This is the first item in an ordered list",
+                                        None,
+                                    )
+                                ],
                                 None,
                             ),
-                            LeafNode(
+                            ParentNode(
                                 "li",
-                                "This is the second item in an ordered list",
+                                [
+                                    LeafNode(
+                                        None,
+                                        "This is the second item in an ordered list",
+                                        None,
+                                    )
+                                ],
                                 None,
                             ),
-                            LeafNode(
+                            ParentNode(
                                 "li",
-                                "This is the third item in an ordered list",
+                                [
+                                    LeafNode(
+                                        None,
+                                        "This is the third item in an ordered list",
+                                        None,
+                                    )
+                                ],
                                 None,
                             ),
                         ],
