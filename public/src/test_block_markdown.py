@@ -16,6 +16,7 @@ from block_markdown import (
     heading_block_to_html,
     markdown_to_blocks,
     ordered_list_block_to_html,
+    paragraph_block_to_html,
     quote_block_to_html,
     unordered_list_block_to_html,
 )
@@ -183,5 +184,16 @@ This is the same paragraph on a new line
                     LeafNode("li", "This is the second list item"),
                     LeafNode("li", "This is the third list item"),
                 ],
+            ).to_html(),
+        )
+
+    def test_paragraph_block_to_html(self):
+        """Test markdown to html paragraph"""
+        block = "This is the first line in a paragraph\nThis is the seond line in a paragraph"
+        self.assertEqual(
+            paragraph_block_to_html(block, BLOCK_TYPE_PARAGRAPH).to_html(),
+            LeafNode(
+                "p",
+                "This is the first line in a paragraph\nThis is the seond line in a paragraph",
             ).to_html(),
         )

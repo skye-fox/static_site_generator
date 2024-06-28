@@ -128,3 +128,10 @@ def ordered_list_block_to_html(block, block_type):
     for i, line in enumerate(old_lines, 1):
         children.append(LeafNode("li", line.strip(f"{i}. ")))
     return ParentNode("ul", children)
+
+
+def paragraph_block_to_html(block, block_type):
+    """Function that takes a markdown paragraph block and returns an html paragraph block"""
+    if block_type != BLOCK_TYPE_PARAGRAPH:
+        raise TypeError("This function only accepts BLOCK_TYPE_PARAGRAPH")
+    return LeafNode("p", block)
