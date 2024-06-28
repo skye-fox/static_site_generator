@@ -142,7 +142,7 @@ This is the same paragraph on a new line
 
     def test_unordered_list_block_to_html_asterisk(self):
         """Test markdown to html unordered list with asterisk marker"""
-        block = "*This is the first list item\n*This is the second list item\n*This is the third list item"
+        block = "* This is the first list item\n* This is the second list item\n* This is the third list item"
         self.assertEqual(
             unordered_list_block_to_html(block, BLOCK_TYPE_UNORDERED_LIST).to_html(),
             ParentNode(
@@ -157,7 +157,7 @@ This is the same paragraph on a new line
 
     def test_unordered_list_block_to_html_dash(self):
         """Test markdown to html unordered list with dash marker"""
-        block = "-This is the first list item\n-This is the second list item\n-This is the third list item"
+        block = "- This is the first list item\n- This is the second list item\n- This is the third list item"
         self.assertEqual(
             unordered_list_block_to_html(block, BLOCK_TYPE_UNORDERED_LIST).to_html(),
             ParentNode(

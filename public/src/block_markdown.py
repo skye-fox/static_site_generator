@@ -112,8 +112,8 @@ def unordered_list_block_to_html(block, block_type):
     children = []
     if block.startswith("*"):
         for line in old_lines:
-            children.append(LeafNode("li", line.strip("*")))
+            children.append(LeafNode("li", line.strip("* ")))
     if block.startswith("-"):
         for line in old_lines:
-            children.append(LeafNode("li", line.strip("-")))
+            children.append(LeafNode("li", line.strip("- ")))
     return ParentNode("ul", children)
