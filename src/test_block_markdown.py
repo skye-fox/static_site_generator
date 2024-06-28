@@ -257,9 +257,15 @@ This is the same paragraph on a new line
                     ParentNode(
                         "h4", [LeafNode(None, "This is an H4 heading", None)], None
                     ),
-                    LeafNode(
+                    ParentNode(
                         "blockquote",
-                        "This is a very inspiring quote\nIt was written by a very inspiring bear\n-- Boots",
+                        [
+                            LeafNode(
+                                None,
+                                "This is a very inspiring quote\nIt was written by a very inspiring bear\n-- Boots",
+                                None,
+                            )
+                        ],
                         None,
                     ),
                     ParentNode(

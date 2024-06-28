@@ -113,7 +113,8 @@ def quote_block_to_html(block, block_type):
     for line in old_lines:
         lines.append(line.strip("> "))
     new_block = "\n".join(lines)
-    return LeafNode("blockquote", new_block)
+    children = text_to_children(new_block)
+    return ParentNode("blockquote", children)
 
 
 def unordered_list_block_to_html(block, block_type):
