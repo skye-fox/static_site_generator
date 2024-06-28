@@ -99,7 +99,7 @@ def quote_block_to_html(block, block_type):
     old_lines = block.splitlines()
     lines = []
     for line in old_lines:
-        lines.append(line.strip(">"))
+        lines.append(line.strip("> "))
     new_block = "\n".join(lines)
     return LeafNode("blockquote", new_block)
 

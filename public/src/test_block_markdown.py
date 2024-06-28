@@ -117,7 +117,7 @@ This is the same paragraph on a new line
 
     def test_quote_block_to_html(self):
         """Test markdown to html quote"""
-        block = ">This is a quote\n>This is another quote\n>This is a third quote"
+        block = "> This is a quote\n> This is another quote\n> This is a third quote"
         self.assertEqual(
             quote_block_to_html(block, BLOCK_TYPE_QUOTE).to_html(),
             LeafNode(
