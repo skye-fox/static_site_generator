@@ -140,7 +140,7 @@ def ordered_list_block_to_html(block, block_type):
     children = []
     for i, line in enumerate(old_lines, 1):
         children.append(LeafNode("li", line.strip(f"{i}. ")))
-    return ParentNode("ul", children)
+    return ParentNode("ol", children)
 
 
 def paragraph_block_to_html(block, block_type):

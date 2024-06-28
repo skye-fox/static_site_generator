@@ -286,7 +286,7 @@ This is the same paragraph on a new line
                         "h6", [LeafNode(None, "This is an H6 heading", None)], None
                     ),
                     ParentNode(
-                        "ul",
+                        "ol",
                         [
                             LeafNode(
                                 "li",
