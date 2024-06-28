@@ -102,3 +102,18 @@ def quote_block_to_html(block, block_type):
         lines.append(line.strip(">"))
     new_block = "\n".join(lines)
     return LeafNode("blockquote", new_block)
+
+
+def unordered_list_block_to_html(block, block_type):
+    """Function that takes a markdown unordered list block and returns an html unordered list block"""
+    if block_type != BLOCK_TYPE_UNORDERED_LIST:
+        raise TypeError("This function only accepts BLOCK_TYPE_UNORDERED_LIST")
+    old_lines = block.splitlines()
+    children = []
+    if block.startswith("*"):
+        for line in old_lines:
+            children.append(LeafNode("li", line.strip("*")))
+    if block.startswith("-"):
+        for line in old_lines:
+            children.append(LeafNode("li", line.strip("-")))
+    return ParentNode("ul", children)

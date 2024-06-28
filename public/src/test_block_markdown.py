@@ -16,6 +16,7 @@ from block_markdown import (
     heading_block_to_html,
     markdown_to_blocks,
     quote_block_to_html,
+    unordered_list_block_to_html,
 )
 from htmlnode import LeafNode, ParentNode
 
@@ -112,7 +113,7 @@ This is the same paragraph on a new line
             LeafNode("h6", "This is an H6").to_html(),
         )
 
-    def test_heading_block_to_html_quote(self):
+    def test_quote_block_to_html(self):
         """Test markdown to html quote"""
         block = ">This is a quote\n>This is another quote\n>This is a third quote"
         self.assertEqual(
@@ -123,7 +124,7 @@ This is the same paragraph on a new line
             ).to_html(),
         )
 
-    def test_heading_block_to_html_code(self):
+    def test_code_block_to_html(self):
         """Test markdown to html code"""
         block = "```This is a code block/nThis is another line in the code block```"
         self.assertEqual(
@@ -135,6 +136,36 @@ This is the same paragraph on a new line
                         "code",
                         "This is a code block/nThis is another line in the code block",
                     )
+                ],
+            ).to_html(),
+        )
+
+    def test_unordered_list_block_to_html_asterisk(self):
+        """Test markdown to html unordered list with asterisk marker"""
+        block = "*This is the first list item\n*This is the second list item\n*This is the third list item"
+        self.assertEqual(
+            unordered_list_block_to_html(block, BLOCK_TYPE_UNORDERED_LIST).to_html(),
+            ParentNode(
+                "ul",
+                [
+                    LeafNode("li", "This is the first list item"),
+                    LeafNode("li", "This is the second list item"),
+                    LeafNode("li", "This is the third list item"),
+                ],
+            ).to_html(),
+        )
+
+    def test_unordered_list_block_to_html_dash(self):
+        """Test markdown to html unordered list with dash marker"""
+        block = "-This is the first list item\n-This is the second list item\n-This is the third list item"
+        self.assertEqual(
+            unordered_list_block_to_html(block, BLOCK_TYPE_UNORDERED_LIST).to_html(),
+            ParentNode(
+                "ul",
+                [
+                    LeafNode("li", "This is the first list item"),
+                    LeafNode("li", "This is the second list item"),
+                    LeafNode("li", "This is the third list item"),
                 ],
             ).to_html(),
         )
