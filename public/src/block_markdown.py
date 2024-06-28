@@ -4,7 +4,7 @@
 
 import re
 
-from htmlnode import LeafNode
+from htmlnode import LeafNode, ParentNode
 
 BLOCK_TYPE_PARAGRAPH = "paragraph"
 BLOCK_TYPE_HEADING = "heading"
@@ -82,6 +82,14 @@ def heading_block_to_html(block, block_type):
     raise ValueError(
         "Heading must conform to one of: '# ', '## ', '### ', '#### ', '##### ', '###### '"
     )
+
+
+def code_block_to_html(block, block_type):
+    """Function that takes a markdown code block & returns an html code block"""
+    if block_type != BLOCK_TYPE_CODE:
+        raise TypeError("This function only accepts BLOCK_TYPE_CODE")
+    block = block.strip("```")
+    return ParentNode("pre", [LeafNode("code", block)])
 
 
 def quote_block_to_html(block, block_type):

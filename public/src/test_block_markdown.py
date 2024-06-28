@@ -12,11 +12,12 @@ from block_markdown import (
     BLOCK_TYPE_QUOTE,
     BLOCK_TYPE_UNORDERED_LIST,
     block_to_block_type,
+    code_block_to_html,
     heading_block_to_html,
     markdown_to_blocks,
     quote_block_to_html,
 )
-from htmlnode import LeafNode
+from htmlnode import LeafNode, ParentNode
 
 
 class TestBlockMarkdown(unittest.TestCase):
@@ -119,5 +120,21 @@ This is the same paragraph on a new line
             LeafNode(
                 "blockquote",
                 "This is a quote\nThis is another quote\nThis is a third quote",
+            ).to_html(),
+        )
+
+    def test_heading_block_to_html_code(self):
+        """Test markdown to html code"""
+        block = "```This is a code block/nThis is another line in the code block```"
+        self.assertEqual(
+            code_block_to_html(block, BLOCK_TYPE_CODE).to_html(),
+            ParentNode(
+                "pre",
+                [
+                    LeafNode(
+                        "code",
+                        "This is a code block/nThis is another line in the code block",
+                    )
+                ],
             ).to_html(),
         )
