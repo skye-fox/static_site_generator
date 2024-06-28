@@ -248,9 +248,22 @@ This is the same paragraph on a new line
                     ParentNode(
                         "ul",
                         [
-                            LeafNode("li", "This is item 1", None),
-                            LeafNode("li", "This is item 2", None),
-                            LeafNode("li", "This is item 3", None),
+                            ParentNode(
+                                "li", [LeafNode(None, "This is item 1", None)], None
+                            ),
+                            ParentNode(
+                                "li",
+                                [
+                                    LeafNode(None, "This is ", None),
+                                    LeafNode(
+                                        "a", "item 2", {"href": "https://www.boot.dev"}
+                                    ),
+                                ],
+                                None,
+                            ),
+                            ParentNode(
+                                "li", [LeafNode(None, "This is item 3", None)], None
+                            ),
                         ],
                         None,
                     ),
@@ -324,7 +337,7 @@ This is the same paragraph on a new line
 ### This is an H3 heading
 
 * This is item 1
-* This is item 2
+* This is [item 2](https://www.boot.dev)
 * This is item 3
 
 #### This is an H4 heading

@@ -123,12 +123,14 @@ def unordered_list_block_to_html(block, block_type):
         raise TypeError("This function only accepts BLOCK_TYPE_UNORDERED_LIST")
     old_lines = block.splitlines()
     children = []
-    if block.startswith("*"):
+    if block.startswith("* "):
         for line in old_lines:
-            children.append(LeafNode("li", line.strip("* ")))
-    if block.startswith("-"):
+            inner_children = text_to_children(line.strip("* "))
+            children.append(ParentNode("li", inner_children))
+    if block.startswith("- "):
         for line in old_lines:
-            children.append(LeafNode("li", line.strip("- ")))
+            inner_children = text_to_children(line.strip("- "))
+            children.append(ParentNode("li", inner_children))
     return ParentNode("ul", children)
 
 
