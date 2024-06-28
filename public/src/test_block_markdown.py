@@ -15,6 +15,7 @@ from block_markdown import (
     code_block_to_html,
     heading_block_to_html,
     markdown_to_blocks,
+    ordered_list_block_to_html,
     quote_block_to_html,
     unordered_list_block_to_html,
 )
@@ -160,6 +161,21 @@ This is the same paragraph on a new line
         block = "- This is the first list item\n- This is the second list item\n- This is the third list item"
         self.assertEqual(
             unordered_list_block_to_html(block, BLOCK_TYPE_UNORDERED_LIST).to_html(),
+            ParentNode(
+                "ul",
+                [
+                    LeafNode("li", "This is the first list item"),
+                    LeafNode("li", "This is the second list item"),
+                    LeafNode("li", "This is the third list item"),
+                ],
+            ).to_html(),
+        )
+
+    def test_ordered_list_block_to_html(self):
+        """Test markdown to html ordered list"""
+        block = "1. This is the first list item\n2. This is the second list item\n3. This is the third list item"
+        self.assertEqual(
+            ordered_list_block_to_html(block, BLOCK_TYPE_ORDERED_LIST).to_html(),
             ParentNode(
                 "ul",
                 [

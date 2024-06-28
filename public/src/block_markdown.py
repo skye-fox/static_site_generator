@@ -117,3 +117,14 @@ def unordered_list_block_to_html(block, block_type):
         for line in old_lines:
             children.append(LeafNode("li", line.strip("- ")))
     return ParentNode("ul", children)
+
+
+def ordered_list_block_to_html(block, block_type):
+    """Function that takes a markdown ordered list block and returns an html ordered list block"""
+    if block_type != BLOCK_TYPE_ORDERED_LIST:
+        raise TypeError("This function only accepts BLOCK_TYPE_ORDERED_LIST")
+    old_lines = block.splitlines()
+    children = []
+    for i, line in enumerate(old_lines, 1):
+        children.append(LeafNode("li", line.strip(f"{i}. ")))
+    return ParentNode("ul", children)
