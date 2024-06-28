@@ -79,6 +79,7 @@ class TestSplitNodesDelimiter(unittest.TestCase):
         )
 
     def test_multiple_nodes(self):
+        """Test split_nodes_delimiter when processing multiple nodes at once"""
         node_1 = TextNode("This is text with a **code block** word", "text")
         node_2 = TextNode("This is text with a **bold** word", "text")
         node_3 = TextNode("This is text with **more bold** words", "text")
