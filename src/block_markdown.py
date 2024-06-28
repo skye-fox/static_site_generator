@@ -61,6 +61,15 @@ def block_to_block_type(block):
     return BLOCK_TYPE_PARAGRAPH
 
 
+def text_to_children(text):
+    """function that takes markdown text and returns a list of htmlnodes"""
+    text_nodes = text_to_textnodes(text)
+    children = []
+    for node in text_nodes:
+        children.append(text_node_to_html_node(node))
+    return children
+
+
 def heading_block_to_html(block, block_type):
     """Function to convert a heading block to html"""
 
@@ -136,11 +145,8 @@ def paragraph_block_to_html(block, block_type):
     """Function that takes a markdown paragraph block and returns an html paragraph block"""
     if block_type != BLOCK_TYPE_PARAGRAPH:
         raise TypeError("This function only accepts BLOCK_TYPE_PARAGRAPH")
-    text_nodes = text_to_textnodes(block)
-    para_children = []
-    for node in text_nodes:
-        para_children.append(text_node_to_html_node(node))
-    return ParentNode("p", para_children)
+    children = text_to_children(block)
+    return ParentNode("p", children)
 
 
 def markdown_to_html(markdown):
