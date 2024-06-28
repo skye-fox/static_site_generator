@@ -179,7 +179,7 @@ This is the same paragraph on a new line
         self.assertEqual(
             ordered_list_block_to_html(block, BLOCK_TYPE_ORDERED_LIST).to_html(),
             ParentNode(
-                "ul",
+                "ol",
                 [
                     LeafNode("li", "This is the first list item"),
                     LeafNode("li", "This is the second list item"),
