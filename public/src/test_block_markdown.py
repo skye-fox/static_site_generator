@@ -12,8 +12,10 @@ from block_markdown import (
     BLOCK_TYPE_QUOTE,
     BLOCK_TYPE_UNORDERED_LIST,
     block_to_block_type,
+    heading_block_to_html,
     markdown_to_blocks,
 )
+from htmlnode import LeafNode
 
 
 class TestBlockMarkdown(unittest.TestCase):
@@ -83,3 +85,27 @@ This is the same paragraph on a new line
         """Test paragraph block"""
         block = "This is a normal paragraph"
         self.assertEqual(block_to_block_type(block), BLOCK_TYPE_PARAGRAPH)
+
+    def test_heading_block_to_html_h1(self):
+        """Test html h1"""
+        block = "# This is an H1"
+        self.assertEqual(
+            heading_block_to_html(block, BLOCK_TYPE_HEADING).to_html(),
+            LeafNode("h1", "This is an H1").to_html(),
+        )
+
+    def test_heading_block_to_html_h4(self):
+        """Test html h4"""
+        block = "#### This is an H4"
+        self.assertEqual(
+            heading_block_to_html(block, BLOCK_TYPE_HEADING).to_html(),
+            LeafNode("h4", "This is an H4").to_html(),
+        )
+
+    def test_heading_block_to_html_h6(self):
+        """Test html h6"""
+        block = "###### This is an H6"
+        self.assertEqual(
+            heading_block_to_html(block, BLOCK_TYPE_HEADING).to_html(),
+            LeafNode("h6", "This is an H6").to_html(),
+        )
