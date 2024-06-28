@@ -206,7 +206,15 @@ This is the same paragraph on a new line
             ParentNode(
                 "div",
                 [
-                    LeafNode("h1", "This is an H1 heading", None),
+                    ParentNode(
+                        "h1",
+                        [
+                            LeafNode(None, "This is a ", None),
+                            LeafNode("bold", "bold", None),
+                            LeafNode(None, " H1 heading", None),
+                        ],
+                        None,
+                    ),
                     ParentNode(
                         "p",
                         [
@@ -216,7 +224,9 @@ This is the same paragraph on a new line
                         ],
                         None,
                     ),
-                    LeafNode("h2", "This is an H2 heading", None),
+                    ParentNode(
+                        "h2", [LeafNode(None, "This is an H2 heading", None)], None
+                    ),
                     ParentNode(
                         "p",
                         [
@@ -232,7 +242,9 @@ This is the same paragraph on a new line
                         ],
                         None,
                     ),
-                    LeafNode("h3", "This is an H3 heading", None),
+                    ParentNode(
+                        "h3", [LeafNode(None, "This is an H3 heading", None)], None
+                    ),
                     ParentNode(
                         "ul",
                         [
@@ -242,19 +254,25 @@ This is the same paragraph on a new line
                         ],
                         None,
                     ),
-                    LeafNode("h4", "This is an H4 heading", None),
+                    ParentNode(
+                        "h4", [LeafNode(None, "This is an H4 heading", None)], None
+                    ),
                     LeafNode(
                         "blockquote",
                         "This is a very inspiring quote\nIt was written by a very inspiring bear\n-- Boots",
                         None,
                     ),
-                    LeafNode("h5", "This is an H5 heading", None),
+                    ParentNode(
+                        "h5", [LeafNode(None, "This is an H5 heading", None)], None
+                    ),
                     ParentNode(
                         "pre",
                         [LeafNode("code", 'print("Hello World")', None)],
                         None,
                     ),
-                    LeafNode("h6", "This is an H6 heading", None),
+                    ParentNode(
+                        "h6", [LeafNode(None, "This is an H6 heading", None)], None
+                    ),
                     ParentNode(
                         "ul",
                         [
@@ -282,7 +300,7 @@ This is the same paragraph on a new line
         )
 
 
-MARKDOWN = """# This is an H1 heading
+MARKDOWN = """# This is a **bold** H1 heading
 
 This is a **bolded** paragraph
 

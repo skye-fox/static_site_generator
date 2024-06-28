@@ -75,22 +75,22 @@ def heading_block_to_html(block, block_type):
 
     split = block.split(" ", 1)
     heading = split[0]
-    content = split[1]
+    children = text_to_children(split[1])
     if block_type != BLOCK_TYPE_HEADING:
         raise TypeError("This function only accepts BLOCK_TYPE_HEADING")
     if len(heading) == 1:
-        return LeafNode("h1", content)
+        return ParentNode("h1", children)
     if len(heading) == 2:
-        return LeafNode("h2", content)
+        return ParentNode("h2", children)
     if len(heading) == 3:
-        return LeafNode("h3", content)
+        return ParentNode("h3", children)
     if len(heading) == 4:
-        return LeafNode("h4", content)
+        return ParentNode("h4", children)
     if len(heading) == 5:
-        return LeafNode("h5", content)
+        return ParentNode("h5", children)
     if len(heading) == 6:
-        return LeafNode("h6", content)
-    raise ValueError(
+        return ParentNode("h6", children)
+    raise SyntaxError(
         "Heading must conform to one of: '# ', '## ', '### ', '#### ', '##### ', '###### '"
     )
 
