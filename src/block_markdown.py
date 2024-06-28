@@ -100,7 +100,8 @@ def code_block_to_html(block, block_type):
     if block_type != BLOCK_TYPE_CODE:
         raise TypeError("This function only accepts BLOCK_TYPE_CODE")
     block = block.strip("```")
-    return ParentNode("pre", [LeafNode("code", block)])
+    children = text_to_children(block)
+    return ParentNode("pre", [ParentNode("code", children)])
 
 
 def quote_block_to_html(block, block_type):

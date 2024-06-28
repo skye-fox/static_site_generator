@@ -267,7 +267,13 @@ This is the same paragraph on a new line
                     ),
                     ParentNode(
                         "pre",
-                        [LeafNode("code", 'print("Hello World")', None)],
+                        [
+                            ParentNode(
+                                "code",
+                                [LeafNode(None, 'print("Hello World")', None)],
+                                None,
+                            )
+                        ],
                         None,
                     ),
                     ParentNode(
