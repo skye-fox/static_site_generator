@@ -18,7 +18,11 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
         else:
             split_node = node.text.split(delimiter)
             for string in split_node:
-                if string.startswith(" ") or string.endswith(" "):
+                if (
+                    string.startswith(" ")
+                    or string.endswith(" ")
+                    or len(split_node) < 2
+                ):
                     new_nodes.append(TextNode(string, "text"))
                 else:
                     if string != "":
