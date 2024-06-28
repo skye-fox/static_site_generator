@@ -5,6 +5,8 @@
 import re
 
 from htmlnode import LeafNode, ParentNode
+from inline_markdown import text_to_textnodes
+from textnode import text_node_to_html_node
 
 BLOCK_TYPE_PARAGRAPH = "paragraph"
 BLOCK_TYPE_HEADING = "heading"
@@ -134,4 +136,29 @@ def paragraph_block_to_html(block, block_type):
     """Function that takes a markdown paragraph block and returns an html paragraph block"""
     if block_type != BLOCK_TYPE_PARAGRAPH:
         raise TypeError("This function only accepts BLOCK_TYPE_PARAGRAPH")
-    return LeafNode("p", block)
+    text_nodes = text_to_textnodes(block)
+    para_children = []
+    for node in text_nodes:
+        para_children.append(text_node_to_html_node(node))
+    return ParentNode("p", para_children)
+
+
+def markdown_to_html(markdown):
+    """Function that takes a markdown document and returns an html document"""
+    children = []
+    blocks = markdown_to_blocks(markdown)
+    for block in blocks:
+        block_type = block_to_block_type(block)
+        if block_type == BLOCK_TYPE_HEADING:
+            children.append(heading_block_to_html(block, block_type))
+        if block_type == BLOCK_TYPE_CODE:
+            children.append(code_block_to_html(block, block_type))
+        if block_type == BLOCK_TYPE_QUOTE:
+            children.append(quote_block_to_html(block, block_type))
+        if block_type == BLOCK_TYPE_UNORDERED_LIST:
+            children.append(unordered_list_block_to_html(block, block_type))
+        if block_type == BLOCK_TYPE_ORDERED_LIST:
+            children.append(ordered_list_block_to_html(block, block_type))
+        if block_type == BLOCK_TYPE_PARAGRAPH:
+            children.append(paragraph_block_to_html(block, block_type))
+    return ParentNode("div", children)

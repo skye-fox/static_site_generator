@@ -15,6 +15,7 @@ from block_markdown import (
     code_block_to_html,
     heading_block_to_html,
     markdown_to_blocks,
+    markdown_to_html,
     ordered_list_block_to_html,
     paragraph_block_to_html,
     quote_block_to_html,
@@ -197,3 +198,117 @@ This is the same paragraph on a new line
                 "This is the first line in a paragraph\nThis is the seond line in a paragraph",
             ).to_html(),
         )
+
+    def test_markdown_to_html(self):
+        """Test function markdown_to_html"""
+        self.assertEqual(
+            markdown_to_html(MARKDOWN).to_html(),
+            ParentNode(
+                "div",
+                [
+                    LeafNode("h1", "This is an H1 heading", None),
+                    ParentNode(
+                        "p",
+                        [
+                            LeafNode(None, "This is a ", None),
+                            LeafNode("bold", "bolded", None),
+                            LeafNode(None, " paragraph", None),
+                        ],
+                        None,
+                    ),
+                    LeafNode("h2", "This is an H2 heading", None),
+                    ParentNode(
+                        "p",
+                        [
+                            LeafNode(None, "This is another paragraph with ", None),
+                            LeafNode("italic", "italic", None),
+                            LeafNode(None, " text and ", None),
+                            LeafNode("code", "code", None),
+                            LeafNode(
+                                None,
+                                " here\nThis is the same paragraph on a new line",
+                                None,
+                            ),
+                        ],
+                        None,
+                    ),
+                    LeafNode("h3", "This is an H3 heading", None),
+                    ParentNode(
+                        "ul",
+                        [
+                            LeafNode("li", "This is item 1", None),
+                            LeafNode("li", "This is item 2", None),
+                            LeafNode("li", "This is item 3", None),
+                        ],
+                        None,
+                    ),
+                    LeafNode("h4", "This is an H4 heading", None),
+                    LeafNode(
+                        "blockquote",
+                        "This is a very inspiring quote\nIt was written by a very inspiring bear\n-- Boots",
+                        None,
+                    ),
+                    LeafNode("h5", "This is an H5 heading", None),
+                    ParentNode(
+                        "pre",
+                        [LeafNode("code", 'print("Hello World")', None)],
+                        None,
+                    ),
+                    LeafNode("h6", "This is an H6 heading", None),
+                    ParentNode(
+                        "ul",
+                        [
+                            LeafNode(
+                                "li",
+                                "This is the first item in an ordered list",
+                                None,
+                            ),
+                            LeafNode(
+                                "li",
+                                "This is the second item in an ordered list",
+                                None,
+                            ),
+                            LeafNode(
+                                "li",
+                                "This is the third item in an ordered list",
+                                None,
+                            ),
+                        ],
+                        None,
+                    ),
+                ],
+                None,
+            ).to_html(),
+        )
+
+
+MARKDOWN = """# This is an H1 heading
+
+This is a **bolded** paragraph
+
+## This is an H2 heading
+
+This is another paragraph with *italic* text and `code` here
+This is the same paragraph on a new line
+
+### This is an H3 heading
+
+* This is item 1
+* This is item 2
+* This is item 3
+
+#### This is an H4 heading
+
+> This is a very inspiring quote
+> It was written by a very inspiring bear
+> -- Boots
+
+##### This is an H5 heading
+
+```print("Hello World")```
+
+###### This is an H6 heading
+
+1. This is the first item in an ordered list
+2. This is the second item in an ordered list
+3. This is the third item in an ordered list"""
