@@ -14,6 +14,7 @@ from block_markdown import (
     block_to_block_type,
     heading_block_to_html,
     markdown_to_blocks,
+    quote_block_to_html,
 )
 from htmlnode import LeafNode
 
@@ -108,4 +109,15 @@ This is the same paragraph on a new line
         self.assertEqual(
             heading_block_to_html(block, BLOCK_TYPE_HEADING).to_html(),
             LeafNode("h6", "This is an H6").to_html(),
+        )
+
+    def test_heading_block_to_html_quote(self):
+        """Test markdown to html quote"""
+        block = ">This is a quote\n>This is another quote\n>This is a third quote"
+        self.assertEqual(
+            quote_block_to_html(block, BLOCK_TYPE_QUOTE).to_html(),
+            LeafNode(
+                "blockquote",
+                "This is a quote\nThis is another quote\nThis is a third quote",
+            ).to_html(),
         )

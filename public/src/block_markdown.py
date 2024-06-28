@@ -82,3 +82,15 @@ def heading_block_to_html(block, block_type):
     raise ValueError(
         "Heading must conform to one of: '# ', '## ', '### ', '#### ', '##### ', '###### '"
     )
+
+
+def quote_block_to_html(block, block_type):
+    """Function that takes a markdown quote block and returns an html quote block"""
+    if block_type != BLOCK_TYPE_QUOTE:
+        raise TypeError("This function only accepts BLOCK_TYPE_QUOTE")
+    old_lines = block.splitlines()
+    lines = []
+    for line in old_lines:
+        lines.append(line.strip(">"))
+    new_block = "\n".join(lines)
+    return LeafNode("blockquote", new_block)
