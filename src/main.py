@@ -4,7 +4,7 @@ import os
 import shutil
 
 from copystatic import copy_static_dir
-from gencontent import generate_page
+from gencontent import generate_pages_recursive
 
 DIR_PATH_CONTENT = "./content"
 DIR_PATH_PUBLIC = "./public"
@@ -15,15 +15,15 @@ TEMPLATE_PATH = "./template.html"
 def main():
     """Entry point function for the program"""
     if os.path.exists(DIR_PATH_PUBLIC):
-        print("***** Removing public directory *****")
+        print("***** Removing --> public directory *****")
         shutil.rmtree(DIR_PATH_PUBLIC)
-    print("***** Creating public directory *****")
+    print("***** Creating --> public directory *****")
     os.mkdir(DIR_PATH_PUBLIC)
     copy_static_dir(DIR_PATH_STATIC, DIR_PATH_PUBLIC)
-    generate_page(
-        os.path.join(DIR_PATH_CONTENT, "index.md"),
+    generate_pages_recursive(
+        DIR_PATH_CONTENT,
         TEMPLATE_PATH,
-        os.path.join(DIR_PATH_PUBLIC, "index.html"),
+        DIR_PATH_PUBLIC,
     )
 
 

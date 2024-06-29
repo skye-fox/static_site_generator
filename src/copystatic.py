@@ -11,9 +11,9 @@ def copy_static_dir(src, dest):
         file_path = os.path.join(src, file)
         if not os.path.isfile(file_path):
             new_dir = os.path.join("public/", file)
-            print(f"***** Creating {new_dir} directory *****")
+            print(f"***** Creating --> {new_dir} directory *****")
             os.mkdir(new_dir)
             copy_static_dir(file_path, new_dir)
         if os.path.isfile(file_path):
-            print(f"***** Copying {file_path} to {dest} directory *****")
+            print(f"***** Copying --> {file_path} to {dest} directory *****")
             shutil.copy(file_path, dest)
