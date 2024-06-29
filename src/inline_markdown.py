@@ -17,16 +17,13 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
             new_nodes.append(node)
         else:
             split_node = node.text.split(delimiter)
-            for string in split_node:
-                if (
-                    string.startswith(" ")
-                    or string.endswith(" ")
-                    or len(split_node) < 2
-                ):
-                    new_nodes.append(TextNode(string, "text"))
+            for i, node in enumerate(split_node):
+                if split_node[i] == "":
+                    continue
+                if i % 2 == 0:
+                    new_nodes.append(TextNode(split_node[i], "text"))
                 else:
-                    if string != "":
-                        new_nodes.append(TextNode(string, text_type))
+                    new_nodes.append(TextNode(split_node[i], text_type))
     return new_nodes
 
 
