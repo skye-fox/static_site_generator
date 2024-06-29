@@ -67,14 +67,14 @@ class TestTextNodeToHtmlNode(unittest.TestCase):
         the function is equal to the html output of a node created by hand"""
 
         node = text_node_to_html_node(text_node1)
-        self.assertEqual(node.to_html(), LeafNode("bold", "Hello World").to_html())
+        self.assertEqual(node.to_html(), LeafNode("b", "Hello World").to_html())
 
     def test2_eq(self):
         """Test to see if html output of a node with the italic tag created by
         the function is equal to the html output of a node created by hand"""
 
         node = text_node_to_html_node(text_node2)
-        self.assertEqual(node.to_html(), LeafNode("italic", "Hello World").to_html())
+        self.assertEqual(node.to_html(), LeafNode("i", "Hello World").to_html())
 
     def test3_eq(self):
         """Test to see if html output of a node with no tag created by

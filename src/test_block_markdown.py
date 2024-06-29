@@ -210,7 +210,7 @@ This is the same paragraph on a new line
                         "h1",
                         [
                             LeafNode(None, "This is a ", None),
-                            LeafNode("bold", "bold", None),
+                            LeafNode("b", "bold", None),
                             LeafNode(None, " H1 heading", None),
                         ],
                         None,
@@ -219,7 +219,7 @@ This is the same paragraph on a new line
                         "p",
                         [
                             LeafNode(None, "This is a ", None),
-                            LeafNode("bold", "bolded", None),
+                            LeafNode("b", "bolded", None),
                             LeafNode(None, " paragraph", None),
                         ],
                         None,
@@ -231,7 +231,7 @@ This is the same paragraph on a new line
                         "p",
                         [
                             LeafNode(None, "This is another paragraph with ", None),
-                            LeafNode("italic", "italic", None),
+                            LeafNode("i", "italic", None),
                             LeafNode(None, " text and ", None),
                             LeafNode("code", "code", None),
                             LeafNode(
